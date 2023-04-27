@@ -1,0 +1,212 @@
+[
+    {
+        "id": "09f0ead947c28763",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f032483460cf3641",
+        "type": "http in",
+        "z": "09f0ead947c28763",
+        "name": "",
+        "url": "/msg",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 400,
+        "y": 520,
+        "wires": [
+            [
+                "f4b6963adbfe62ab",
+                "50efd4fc606e39b2"
+            ]
+        ]
+    },
+    {
+        "id": "307a90e2054c6b10",
+        "type": "function",
+        "z": "09f0ead947c28763",
+        "name": "",
+        "func": "data = msg.req.url;\nvar encod1 = data.replace('/msg?=&=', '');\nvar encod2 = encod1.replace('&=9893376058&=', '');\nvar final = decodeURIComponent(encod2);\nmsg.payload.type = 'message';\nmsg.payload.content = final;\nmsg.payload.chatId = '-760973741';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 380,
+        "wires": [
+            [
+                "dfd08c09f5ed7312",
+                "e22d6afed2c25246",
+                "8eeab7c17a95ac9e"
+            ]
+        ]
+    },
+    {
+        "id": "f4b6963adbfe62ab",
+        "type": "http response",
+        "z": "09f0ead947c28763",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 590,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "50efd4fc606e39b2",
+        "type": "switch",
+        "z": "09f0ead947c28763",
+        "name": "",
+        "property": "req.url",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "/msg?=&=Entry",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 590,
+        "y": 440,
+        "wires": [
+            [
+                "307a90e2054c6b10"
+            ]
+        ]
+    },
+    {
+        "id": "8eeab7c17a95ac9e",
+        "type": "telegram sender",
+        "z": "09f0ead947c28763",
+        "name": "",
+        "bot": "12f747be5d7b8a15",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1280,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "928469ff9619aab9",
+        "type": "debug",
+        "z": "09f0ead947c28763",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "37265596af39c332",
+        "type": "http request",
+        "z": "09f0ead947c28763",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://api.saumay.me/smc",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 1170,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dfd08c09f5ed7312",
+        "type": "function",
+        "z": "09f0ead947c28763",
+        "name": "",
+        "func": "msg.payload = msg.payload.content;\nmsg.headers = {\n    \"Content-Type\": \"text/plain\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 540,
+        "wires": [
+            [
+                "90daeb4bd6ed3089",
+                "37265596af39c332"
+            ]
+        ]
+    },
+    {
+        "id": "90daeb4bd6ed3089",
+        "type": "debug",
+        "z": "09f0ead947c28763",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "e22d6afed2c25246",
+        "type": "logtail-log",
+        "z": "09f0ead947c28763",
+        "name": "",
+        "logtail": "948d700bfdd22790",
+        "x": 1050,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "12f747be5d7b8a15",
+        "type": "telegram bot",
+        "botname": "SMC",
+        "usernames": "",
+        "chatids": "-760973741",
+        "baseapiurl": "",
+        "updatemode": "none",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": true
+    },
+    {
+        "id": "948d700bfdd22790",
+        "type": "logtail-config",
+        "name": "Logtail",
+        "sourceToken": ""
+    }
+]
