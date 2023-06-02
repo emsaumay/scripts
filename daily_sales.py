@@ -1,5 +1,6 @@
 from telethon import TelegramClient
-import datetime, re, sys, os
+import datetime, re, sys
+import os
 import requests
 
 api_id = os.environ['TG_API_ID']
